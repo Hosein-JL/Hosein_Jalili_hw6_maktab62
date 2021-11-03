@@ -91,6 +91,9 @@ let personData = [
   },
 ];
 
+let btnGet = document.querySelector("button");
+let myTable = document.querySelector("#table");
+
 var rIndex,
   table = document.getElementById("table");
 
@@ -106,7 +109,7 @@ function checkEmptyInput() {
     (phoneNumber = document.getElementById("number").value),
     (Position = document.getElementById("pos").value);
 
-  // console.log(UID);
+  let targetPerson = personData.find((el) => el.uid === Number(UID));
 
   if (fname === "") {
     alert("First Name Connot Be Empty");
@@ -131,6 +134,9 @@ function checkEmptyInput() {
     isEmpty = true;
   } else if (Row === "") {
     alert("First Name Connot Be Empty");
+    isEmpty = true;
+  } else if (targetPerson) {
+    alert("You can not select duplicates");
     isEmpty = true;
   }
 
