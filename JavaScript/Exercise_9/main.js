@@ -91,15 +91,104 @@ let personData = [
   },
 ];
 
-let btnGet = document.querySelector("button");
-let myTable = document.querySelector("#table");
+let table = document.createElement("table");
+let thead = document.createElement("thead");
+let tbody = document.createElement("tbody");
+let div = document.createElement("div");
+
+table.appendChild(thead);
+table.appendChild(tbody);
+tbody.setAttribute("id", "tableData");
+document.getElementsByTagName("body")[0].appendChild(table);
+document.getElementsByTagName("body")[0].appendChild(div);
+div.setAttribute("id", "tab2");
+div.setAttribute("class", "tab tab-2");
+table.border = "1";
+table.setAttribute("id", "show");
+// Creating and adding data to first row of the table
+
+let row_1 = document.createElement("tr");
+let heading_1 = document.createElement("th");
+let heading_2 = document.createElement("th");
+let heading_3 = document.createElement("th");
+let heading_4 = document.createElement("th");
+let heading_5 = document.createElement("th");
+let heading_6 = document.createElement("th");
+let heading_7 = document.createElement("th");
+let heading_8 = document.createElement("th");
+
+heading_2.setAttribute("id", "sortUID");
+heading_3.setAttribute("id", "sortFN");
+heading_4.setAttribute("id", "sortLN");
+heading_5.setAttribute("id", "sortCity");
+heading_6.setAttribute("id", "sortCode");
+heading_7.setAttribute("id", "sortNumber");
+heading_8.setAttribute("id", "sortPoss");
+
+heading_1.textContent = "Row";
+heading_2.textContent = "Uid";
+heading_3.textContent = "First Name";
+heading_4.textContent = "Last Name";
+heading_5.textContent = "City";
+heading_6.textContent = "Postal Code";
+heading_7.textContent = "Phone number";
+heading_8.textContent = "Position";
+
+row_1.appendChild(heading_1);
+row_1.appendChild(heading_2);
+row_1.appendChild(heading_3);
+row_1.appendChild(heading_4);
+row_1.appendChild(heading_5);
+row_1.appendChild(heading_6);
+row_1.appendChild(heading_7);
+row_1.appendChild(heading_8);
+thead.appendChild(row_1);
+
+function loadTableData(tableData) {
+  const tableBody = document.getElementById("tableData");
+  let dateHtml = "";
+
+  for (let i = 0; i < personData.length; i++) {
+    dateHtml += `<tr><td>${i + 1}</td>
+       <td>${personData[i].uid}</td>
+       <td>${personData[i].firstName}</td>
+       <td>${personData[i].lastName}</td>
+       <td>${personData[i].city}</td>
+       <td>${personData[i].postalCode}</td>
+       <td>${personData[i].phoneNumber}</td>
+       <td>${personData[i].position}</td></tr>`;
+  }
+  tableBody.innerHTML = dateHtml;
+}
+
+loadTableData(personData);
+
+const panel = document.getElementById("tab2");
+
+let dateHtmlDiv = `
+Row:<input type="number" name="row" id="row">
+            UID :<input type="number" name="UID" id="UID">
+            First Name :<input type="text" name="fname" id="fname">
+            Last Name :<input type="text" name="lname" id="lname">
+            City:<input type="text" name="city" id="city">
+            Postal Code :<input type="number" name="postalcode" id="code">
+            Phone number:<input type="number" name="phonenumber" id="number">
+            Position :<input type="text" name="Position" id="pos">
+            <div>
+                <button onclick="addHtmlTableRow();">Add</button>
+                <button onclick="editHtmlTbleSelectedRow();">Edit</button>
+                <button onclick="removeSelectedRow();">Remove</button>
+            </div>
+        </div>`;
+panel.innerHTML = dateHtmlDiv;
 
 var rIndex,
-  table = document.getElementById("table");
+  table3 = document.getElementById("table");
 
 // check the empty input
-function checkEmptyInput() {
-  var isEmpty = false,
+
+function checkEmptyInput2() {
+  var isEmpty2 = false,
     Row = document.getElementById("row").value;
   (UID = document.getElementById("UID").value),
     (fname = document.getElementById("fname").value),
@@ -113,34 +202,33 @@ function checkEmptyInput() {
 
   if (fname === "") {
     alert("First Name Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (lname === "") {
     alert("Last Name Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (UID === "") {
     alert("UID Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (city === "") {
     alert("City Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (postalCode === "") {
     alert("Postal Code Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (phoneNumber === "") {
     alert("Phone Number Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (Position === "") {
     alert("Position Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (Row === "") {
     alert("First Name Connot Be Empty");
-    isEmpty = true;
+    isEmpty2 = true;
   } else if (targetPerson) {
     alert("You can not select duplicates");
-    isEmpty = true;
+    isEmpty2 = true;
   }
-
-  return isEmpty;
+  return isEmpty2;
 }
 
 // add Row
@@ -149,7 +237,7 @@ function addHtmlTableRow() {
   // create a new row and cells
   // get value from input text
   // set the values into row cell's
-  if (!checkEmptyInput()) {
+  if (!checkEmptyInput2()) {
     var newRow = table.insertRow(table.length),
       cell = newRow.insertCell(0),
       cell1 = newRow.insertCell(1),
@@ -180,6 +268,51 @@ function addHtmlTableRow() {
     // call the function to set the event to the new row
     selectedRowToInput();
   }
+}
+
+function checkEmptyInput() {
+  var isEmpty = false,
+    Row = document.getElementById("row").value;
+  (UID = document.getElementById("UID").value),
+    (fname = document.getElementById("fname").value),
+    (lname = document.getElementById("lname").value),
+    (city = document.getElementById("city").value),
+    (postalCode = document.getElementById("code").value),
+    (phoneNumber = document.getElementById("number").value),
+    (Position = document.getElementById("pos").value);
+
+  //   let targetPerson = personData.find((el) => el.uid === Number(UID));
+
+  if (fname === "") {
+    alert("First Name Connot Be Empty");
+    isEmpty = true;
+  } else if (lname === "") {
+    alert("Last Name Connot Be Empty");
+    isEmpty = true;
+  } else if (UID === "") {
+    alert("UID Connot Be Empty");
+    isEmpty = true;
+  } else if (city === "") {
+    alert("City Connot Be Empty");
+    isEmpty = true;
+  } else if (postalCode === "") {
+    alert("Postal Code Connot Be Empty");
+    isEmpty = true;
+  } else if (phoneNumber === "") {
+    alert("Phone Number Connot Be Empty");
+    isEmpty = true;
+  } else if (Position === "") {
+    alert("Position Connot Be Empty");
+    isEmpty = true;
+  } else if (Row === "") {
+    alert("First Name Connot Be Empty");
+    isEmpty = true;
+    //   } else if (targetPerson) {
+    //     alert("You can not select duplicates");
+    //     isEmpty = true;
+  }
+
+  return isEmpty;
 }
 
 // display selected row data into input text
@@ -231,3 +364,9 @@ function removeSelectedRow() {
   document.getElementById("number").value = "";
   document.getElementById("pos").value = "";
 }
+
+document.getElementById("tab2").style.display = "none";
+
+document.getElementById("show").onclick = function () {
+  document.getElementById("tab2").style.display = "block";
+};
