@@ -118,12 +118,6 @@ let heading_7 = document.createElement("th");
 let heading_8 = document.createElement("th");
 
 heading_2.setAttribute("id", "sortUID");
-heading_3.setAttribute("id", "sortFN");
-heading_4.setAttribute("id", "sortLN");
-heading_5.setAttribute("id", "sortCity");
-heading_6.setAttribute("id", "sortCode");
-heading_7.setAttribute("id", "sortNumber");
-heading_8.setAttribute("id", "sortPoss");
 
 heading_1.textContent = "Row";
 heading_2.textContent = "Uid";
@@ -369,4 +363,31 @@ document.getElementById("tab2").style.display = "none";
 
 document.getElementById("show").onclick = function () {
   document.getElementById("tab2").style.display = "block";
+};
+
+document.getElementById("sortUID").onclick = function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("show");
+  switching = true;
+
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+
+    for (i = 1; i < rows.length - 1; i++) {
+      shouldSwitch = false;
+
+      x = rows[i].getElementsByTagName("td")[1];
+      y = rows[i + 1].getElementsByTagName("td")[1];
+
+      if (Number(x.innerHTML) > Number(y.innerHTML)) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
 };
