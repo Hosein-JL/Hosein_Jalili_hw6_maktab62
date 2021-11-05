@@ -19,6 +19,7 @@ let circleMarginLeft = 25;
 let circleMarginTop = 25;
 let fontMarginTop = 82;
 let circleHalf = 3.75;
+let marginMouse = 20;
 let boxes = document.createElement("div");
 let redBox = document.createElement("div");
 let blackBox = document.createElement("div");
@@ -63,11 +64,9 @@ function circleInBox(
   offset,
   circleMarginLeft,
   circleMarginTop,
-  circleHalf
+  circleHalf,
+  marginMouse = 20
 ) {
-  console.log(mouseX);
-  console.log(offset);
-
   if (
     mouseX + offset + circleMarginLeft >= blackBox.offsetLeft + circleHalf &&
     mouseX + offset + circleMarginLeft <=
@@ -75,7 +74,7 @@ function circleInBox(
         blackBox.offsetWidth -
         offset -
         circle.offsetWidth +
-        20 &&
+        marginMouse &&
     mouseY + offset + circleMarginTop >= blackBox.offsetTop + circleHalf &&
     mouseY + offset + circleMarginTop <=
       blackBox.offsetTop + blackBox.offsetHeight - circleHalf * 2
@@ -83,8 +82,8 @@ function circleInBox(
     circle.style.backgroundColor = "red";
     showBox.style.visibility = "visible";
     showBox.textContent = `Red Circle in Black Box: (x: ${
-      mouseX - blackBox.offsetLeft + offset + 20
-    }) | (y: ${mouseY - blackBox.offsetTop + offset + 20})`;
+      mouseX - blackBox.offsetLeft + offset + marginMouse
+    }) | (y: ${mouseY - blackBox.offsetTop + offset + marginMouse})`;
   } else if (
     mouseX + offset + circleMarginLeft >= redBox.offsetLeft + circleHalf &&
     mouseX + offset + circleMarginLeft <=
@@ -92,7 +91,7 @@ function circleInBox(
         redBox.offsetWidth -
         offset -
         circle.offsetWidth +
-        20 &&
+        marginMouse &&
     mouseY + offset + circleMarginTop >= redBox.offsetTop + circleHalf &&
     mouseY + offset + circleMarginTop <=
       redBox.offsetTop + redBox.offsetHeight - circleHalf * 2
@@ -100,8 +99,8 @@ function circleInBox(
     circle.style.backgroundColor = "black";
     showBox.style.visibility = "visible";
     showBox.textContent = `Black Circle in Red Box: (x: ${
-      mouseX - redBox.offsetLeft + offset + 20
-    }) | (y: ${mouseY - redBox.offsetTop + offset + 20})`;
+      mouseX - redBox.offsetLeft + offset + marginMouse
+    }) | (y: ${mouseY - redBox.offsetTop + offset + marginMouse})`;
   } else {
     showBox.style.visibility = "hidden";
     circle.style.backgroundColor = "blue";
